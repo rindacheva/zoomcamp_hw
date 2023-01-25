@@ -1,0 +1,12 @@
+SELECT "Zone"
+FROM zones
+WHERE 
+	"LocationID" = (SELECT "DOLocationID"
+					FROM green_taxi_trips
+					WHERE "tip_amount" = 
+						(SELECT MAX(tip_amount) 
+						FROM green_taxi_trips
+					 	WHERE "PULocationID" = 
+						 	(SELECT "LocationID" 
+								FROM zones 	
+								WHERE "Zone" = 'Astoria')))
